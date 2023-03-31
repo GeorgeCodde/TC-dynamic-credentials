@@ -1,0 +1,20 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "${oid_provider_arn}"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "${hostname}:aud": "${client_id}"
+        },
+        "StringLike": {
+          "${hostname}:sub": "organization:${organization}:project:${project}:workspace:${workspace}:run_phase:*"
+        }
+      }
+    }
+  ]
+}
